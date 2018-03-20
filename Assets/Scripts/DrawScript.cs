@@ -9,6 +9,8 @@ public class DrawScript : MonoBehaviour {
 
     private List<GameObject> points = new List<GameObject>();
 
+    private GameObject text;
+    private GameObject startPoint;
     private Vector3 initMouse;
     private Vector3 mouseTrack;
     private Vector3 mouseDist;
@@ -18,8 +20,8 @@ public class DrawScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        text = GameObject.Find("Text");
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -31,24 +33,18 @@ public class DrawScript : MonoBehaviour {
             initMouse.z = 9.5f;
             initMouse = Camera.main.ScreenToWorldPoint(initMouse);
             mouseTrack = initMouse;
-            //Create corner point and wall prefab. Add corner to list 
-            GameObject pointPrefab =  Instantiate(point, mouseTrack, Quaternion.identity);
-            GameObject wallPrefab = Instantiate(wall, mouseTrack, Quaternion.identity);
-            pointPrefab.name = "Point" + points.Count;
-            wallPrefab.name = "Wall" + wallCount;
-            wallScale = wallPrefab.transform;
-            points.Add(pointPrefab);
-            
+            CreatePoint();
+            CreateWall();
             trackMouse = true;
         }
 
         if (Input.GetMouseButtonUp(0))
         {
+            
             trackMouse = false;
-            Debug.Log("Mouse moved " + mouseDist + " while button was down.");
-            GameObject pointPrefab = Instantiate(point, mouseTrack, Quaternion.identity);
-            pointPrefab.name = "Point" + points.Count;
-            points.Add(pointPrefab);
+            Debug.Log("Mouse moved " + mouseDist.magnitude + " while button was down.");
+            text.GetComponent<TextMesh>().text = "";
+            CreatePoint();
             wallCount++;
         }
         
@@ -66,7 +62,34 @@ public class DrawScript : MonoBehaviour {
                 currWall.transform.localScale = new Vector3(wallScale.localScale.x, mouseDist.magnitude / 1.0f, wallScale.localScale.z);
                 currWall.transform.rotation = Quaternion.FromToRotation(Vector3.up, mouseDist);
             }
+
+            text.transform.position = new Vector3(mouseTrack.x + 0.5f, mouseTrack.y + 0.3f, mouseTrack.z);
+            text.GetComponent<TextMesh>().text = mouseDist.magnitude.ToString().Substring(0,5) + "m";
         }
 
+    }
+
+    void CreatePoint()
+    {
+        GameObject pointPrefab = Instantiate(point, mouseTrack, Quaternion.identity);
+        if (points.Count == 0)
+            startPoint = pointPrefab;
+
+        pointPrefab.name = "Point" + points.Count;
+        points.Add(pointPrefab);
+    }
+
+    void CreatePoints(Vector3 pos)
+    {
+        GameObject pointPrefab = Instantiate(point, pos, Quaternion.identity);
+        pointPrefab.name = "Point" + points.Count;
+        points.Add(pointPrefab);
+    }
+
+    void CreateWall()
+    {
+        GameObject wallPrefab = Instantiate(wall, mouseTrack, Quaternion.identity);
+        wallPrefab.name = "Wall" + wallCount;
+        wallScale = wallPrefab.transform;
     }
 }
