@@ -6,10 +6,13 @@ Managed to create a scene where the user can click to place a corner, and drag f
 As the user drags, the length of the wall will display alongside the cursor.
 There is currently nothing restricting the user from creating walls that do not connect.
 
-If the user connects a wall to the starting point, and there are at least 4 points, the area bound by the 3 corners will be calculated and displayed.
-The FillArea then tries to add a quad to that area to highlight the area. This currently doesn't work very well, as the center point of the quad can be a bit off once the bounds are recalculated.
+If the user connects a wall to the starting point, and there are at least 4 points, the area bound by the 4 corners will be calculated
+and displayed.
+The FillArea then tries to add a quad to that area to highlight the area. This currently doesn't work very well, as the center point
+of the quad can be a bit off once the bounds are recalculated.
 
-Created a scriptable object to hold a list of the points created. Wanted to create a way to load this with a button to recreate a stored room.
+Created a scriptable object to hold a list of the points created. Wanted to create a way to load this with a button to recreate
+a stored room.
 
 Issues:
 No restriction on direction user can draw walls, no restriction on creating walls that do not connect.
