@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DrawScript : MonoBehaviour {
 
+    public PointData pointData;
     public GameObject point;
     public GameObject wall;
     public GameObject fill;
@@ -46,7 +47,7 @@ public class DrawScript : MonoBehaviour {
         {
             
             trackMouse = false;
-            Debug.Log("Mouse moved " + mouseDist.magnitude);
+            //Debug.Log("Mouse moved " + mouseDist.magnitude);
             lengthText.GetComponent<TextMesh>().text = "";
 
             //CreatePoint();
@@ -56,7 +57,7 @@ public class DrawScript : MonoBehaviour {
             {
                 areaText.GetComponent<TextMesh>().text = area.ToString().Substring(0, 5) + "m2";
                 FillArea();
-                Debug.Log(area);
+                //Debug.Log(area);
             }
         }
         
@@ -93,6 +94,7 @@ public class DrawScript : MonoBehaviour {
             pointPrefab.name = "Point" + points.Count;
 
         points.Add(pointPrefab);
+        pointData.points.Add(new Vector2(pointPrefab.transform.position.x,pointPrefab.transform.position.y));
     }
 
     void CreatePoints(Vector3 pos)
@@ -151,7 +153,11 @@ public class DrawScript : MonoBehaviour {
 
         Vector3 center = (points[0].transform.position + points[1].transform.position + points[2].transform.position + points[3].transform.position) / 4;
 
-        fillPrefab.transform.position = center;
+        areaText.transform.position = center;
         fillPrefab.GetComponent<MeshFilter>().mesh.vertices = verticies;
+        fillPrefab.GetComponent<MeshFilter>().mesh.RecalculateBounds();
+        fillPrefab.transform.position = center;
+
+        roomEnd = false;
     }
 }

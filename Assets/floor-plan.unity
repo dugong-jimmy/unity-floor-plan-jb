@@ -376,6 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cc57d34dbf119448bcb66fad6867ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointData: {fileID: 11400000, guid: 2c340c6a1f41427428a8f88267250006, type: 2}
   point: {fileID: 1726430692077916, guid: 84207e24909808f47b6ba5a5d84bcc08, type: 2}
   wall: {fileID: 1406283782604010, guid: 4c7cfe2a99609af45b92da9197d25d4e, type: 2}
   fill: {fileID: 1519215851185126, guid: 7830148cb024cf44f94a1fb76701a9c9, type: 2}

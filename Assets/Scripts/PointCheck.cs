@@ -21,7 +21,7 @@ public class PointCheck : MonoBehaviour {
     {
         if (name == "StartPoint")
         {
-            Debug.Log("Mouse over point");
+            //Debug.Log("Mouse over point");
             drawScript.CalcArea();
         }
     }
